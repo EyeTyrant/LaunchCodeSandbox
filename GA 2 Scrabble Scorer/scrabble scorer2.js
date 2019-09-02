@@ -41,11 +41,6 @@ function initialPrompt() {
   return choice;
 }
 
-
-
-
-
-
 // Code your runProgram function here:
 
 
@@ -73,27 +68,12 @@ let scoringAlgorithms = [
       let score = 0;
       let letters = word.toLowerCase().split('');
       for (let i = 0; i < letters.length; i++) {
-        // console.log(letters[i])
         for (key in newScoreKey) {
           if (letters[i] === key) {
             score += Number(newScoreKey[key][0]);
           }
+        }
       }
-        
-          
-        
-            
-          
-        
-        
-        console.log(letter)
-      }
-
-
-      
-
-
-      console.log(letters)
       return score;
     }
   },
@@ -101,6 +81,11 @@ let scoringAlgorithms = [
     name: 'Simple Score',
     description: 'Each letter is worth 1 point.',
     scoreFunction: function(word) {
+      let score = 0;
+      let letters = word.toLowerCase().split('');
+      for (letter in letters) {
+        score += 1
+      }
       return score;
     }
   },
@@ -108,16 +93,26 @@ let scoringAlgorithms = [
     name: 'Bonus Vowels',
     description: 'Vowels are 3 points, consonants are 1 point.',
     scoreFunction: function(word) {
-      return score;
+      let vowels = ['a', 'e', 'i', 'o', 'u'];
+      let score = 0;
+      let letters = word.toLowerCase().split('');
+      for (let i = 0; i < letters.length; i++) {
+        if (vowels.includes(letters[i])) {
+          score += 3
+        } else {
+          score += 1;
+        }
+      }
+        return score;
     }
   }
 ]
 
-
-
-
+console.log(scoringAlgorithms[2].scoreFunction('JavaScript'))
+console.log(scoringAlgorithms[1].scoreFunction('JavaScript'))
 console.log(scoringAlgorithms[0].scoreFunction('JavaScript'))
 // console.log(initialPrompt())
+
 // Call the runProgram function here:
 
 
