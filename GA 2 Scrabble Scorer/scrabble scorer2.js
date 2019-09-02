@@ -1,9 +1,9 @@
 // Graded Assignment 2: Scrabble Scorer
 
 // Code your transform function here:
-
+let newScoreKey = {};
 function transform(oldScoreKey) {
-  let newScoreKey = {};
+  
   // let keys = [];
   // let vals = [];
 
@@ -32,15 +32,15 @@ function initialPrompt() {
     while (options.indexOf(choice) === -1) {
       choice = prompt(
     `WELCOME TO SCRABBLE SCORER
-    Scoring Methods:s
-    Scrabble:     Letters have traditional point values
-    Simple Score: Each Letter is worth 1 point
-    Bonus Vowels: Vowels are 3 points, consonants are 1 point
+    Scoring Methods:
+    ${scoringAlgorithms[0].name}:            ${scoringAlgorithms[0].description}
+    ${scoringAlgorithms[1].name}:     ${scoringAlgorithms[1].description}
+    ${scoringAlgorithms[2].name}:    ${scoringAlgorithms[2].description}
     Please enter your method:`).toLocaleLowerCase();
     }
   return choice;
 }
-// console.log(initialPrompt())
+
 
 
 
@@ -60,24 +60,65 @@ const oldScoreKey = {
   10: ['Q', 'Z']
 };
 
-// console.log(transform(oldScoreKey))
-
-
-
-
-
-
-
-
-
 // Use the transform function to create the newScoreKey object here:
 
+transform(oldScoreKey)
 
 // Create your scoringAlgorithms array here:
+let scoringAlgorithms = [
+  {
+    name: 'Scrabble',
+    description: 'The traditional scoring algorithm.',
+    scoreFunction: function(word) {
+      let score = 0;
+      let letters = word.toLowerCase().split('');
+      for (let i = 0; i < letters.length; i++) {
+        // console.log(letters[i])
+        for (key in newScoreKey) {
+          if (letters[i] === key) {
+            score += Number(newScoreKey[key][0]);
+          }
+      }
+        
+          
+        
+            
+          
+        
+        
+        console.log(letter)
+      }
 
 
+      
+
+
+      console.log(letters)
+      return score;
+    }
+  },
+  {
+    name: 'Simple Score',
+    description: 'Each letter is worth 1 point.',
+    scoreFunction: function(word) {
+      return score;
+    }
+  },
+  {
+    name: 'Bonus Vowels',
+    description: 'Vowels are 3 points, consonants are 1 point.',
+    scoreFunction: function(word) {
+      return score;
+    }
+  }
+]
+
+
+
+
+console.log(scoringAlgorithms[0].scoreFunction('JavaScript'))
+// console.log(initialPrompt())
 // Call the runProgram function here:
-
 
 
 
