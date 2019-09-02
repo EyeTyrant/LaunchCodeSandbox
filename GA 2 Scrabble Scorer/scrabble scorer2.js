@@ -24,12 +24,26 @@ function transform(oldScoreKey) {
   return newScoreKey;
 }
 
-
-
-
-
-
 // Code your initialPrompt function here:
+
+function initialPrompt() {
+  let choice; 
+  let options = ['scrabble', 'simple score', 'bonus vowels']
+    while (options.indexOf(choice) === -1) {
+      choice = prompt(
+    `WELCOME TO SCRABBLE SCORER
+    Scoring Methods:s
+    Scrabble:     Letters have traditional point values
+    Simple Score: Each Letter is worth 1 point
+    Bonus Vowels: Vowels are 3 points, consonants are 1 point
+    Please enter your method:`).toLocaleLowerCase();
+    }
+  return choice;
+}
+// console.log(initialPrompt())
+
+
+
 
 
 // Code your runProgram function here:
@@ -46,8 +60,7 @@ const oldScoreKey = {
   10: ['Q', 'Z']
 };
 
-
-console.log(transform(oldScoreKey))
+// console.log(transform(oldScoreKey))
 
 
 
@@ -64,3 +77,25 @@ console.log(transform(oldScoreKey))
 
 
 // Call the runProgram function here:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// const input = require('readline-sync');
+  // let choice = input.question(
+  //   `WELCOME TO SCRABBLE SCORER
+  //   Scoring Methods:
+  //   Scrabble:     Letters have traditional point values
+  //   Simple Score: Each Letter is worth 1 point
+  //   Bonus Vowels: Vowels are 3 points, consonants are 1 point
+  //   Please enter your method:`);
