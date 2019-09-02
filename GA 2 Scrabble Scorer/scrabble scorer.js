@@ -1,10 +1,11 @@
 // Graded Assignment 2: Scrabble Scorer
 
 // Code your transform function here:
-
+let keys = [];
 function transform(oldScoreKey) {
+  let temp;
   let newScoreKey = {};
-  let keys = [];
+  
   // let vals = [];
 // this for loop gets the keys from oldScoreKey and puts them in the array keys
   for (key in oldScoreKey) {
@@ -14,15 +15,19 @@ function transform(oldScoreKey) {
 // for (val in oldScoreKey) {
 //     vals.push(oldScoreKey[val])
 //   }
-// let cheese = keys.map(makeKey(oldScoreKey, keys))
+// let newScoreKey = keys.map(makeKey(oldScoreKey, keys))
   console.log(keys)
   console.log(makeKey(oldScoreKey, 3))
+  
   for (let j = 0; j < keys.length; j++) {
     // newScoreKey = Object.defineProperty(oldScoreKey, vals[keys][j], {keys:key})
-    newScoreKey = makeKey(oldScoreKey, keys[j])
-    return newScoreKey;
+    temp = makeKey(oldScoreKey, keys[j]);
+    
+    return temp;
   }
-
+  
+  
+  
 // this for loop is where the magic happens DO NOT DELETE IT !!!!!!
   // for (let i = 0; i < vals[0].length; i++) {
   //   newScoreKey[vals[0][i]] = keyArray[0];
