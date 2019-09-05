@@ -3,7 +3,7 @@
 //  12.8.3: Orbit Calculations
 
 // Code your orbitCircumference function here:
-function calcCircum(altitude) {
+function orbitCircumference(altitude) {
   let r = altitude;
   let pi = Math.PI;
   return Math.round(2*pi*r);
@@ -14,10 +14,11 @@ function calcCircum(altitude) {
 
 function missionDuration(orbits, radius = 2000, speed = 28000) {
 let duration;
-let distance = calcCircum(radius);
+let distance = orbitCircumference(radius);
 time = orbits * distance / speed;
 duration = Math.round(time * 100) / 100;
-  return `The mission will travel ${distance} km around the planet, and it will take ${duration} hours to complete.`;
+  return duration;
+  // `The mission will travel ${distance} km around the planet, and it will take ${duration} hours to complete.`;
 }
 
 // console.log(missionDuration(5))
@@ -26,53 +27,21 @@ duration = Math.round(time * 100) / 100;
 
 
 function selectRandomEntry(arr) {
-  let cadets = [];
   let randomId = [];
-  let number;
-  number = randomNum(arr);
-
-  // while (randomId.length < 3) {
-  //   if (!randomId.includes(number)) {
-  //     randomId.push(number);
-  //   } else {
-  //     randomNum(arr);
-  //   }
-  // }
-
-  function randomNum(numArr) {
-    number = numArr[Math.floor(Math.random() * arr.length)];
-    return number;
-  }
-
-  for (keys in arr) {
-    if (randomId.includes(arr[keys].astronautID)) {
-      cadets.push(arr[keys].name);
-    }
-  }
-  // return number;
-  // console.log(arr)
-  return cadets;
+  randomId = arr[Math.floor(Math.random() * arr.length)];
+  return randomId;
 }
 
 
 // Code your oxygenExpended function here:
 
 function oxygenExpended(orbits, crew) {
-  let memeber.name = selectRandomEntry(crew);
-  
-  // let consumed = member.rate(duration)
+  let member;
+  member = selectRandomEntry(crew);
   let duration = missionDuration(orbits);
-  // let consumed = member.rate(duration);
-  
-  
-
-  // console.log(member)
-  console.log(duration)
-  console.log(consumed)
-  return `${member} will perform the spacewalk, which will last ${duration} hours and require ${consumed} kg of oxyget.`
+  let consumed = Math.round(member.rate(duration)*1000)/1000;
+  return `${member.name} will perform the spacewalk, which will last ${duration} hours and require ${consumed} kg of oxygen.`
 }
-
-
 
 
 // Candidate data & crew array.
@@ -120,6 +89,4 @@ let candidateF = {
 
 let crew = [candidateA, candidateC, candidateE];
 
-
-console.log(selectRandomEntry(crew))
 console.log(oxygenExpended(3, crew))
