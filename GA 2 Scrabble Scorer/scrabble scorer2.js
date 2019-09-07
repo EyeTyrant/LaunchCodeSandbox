@@ -1,5 +1,7 @@
 // Graded Assignment 2: Scrabble Scorer
 
+// const input = require('readline-sync');
+
 // Code your transform function here:
 let newScoreKey = {};
 function transform(oldScoreKey) {
@@ -21,6 +23,7 @@ function transform(oldScoreKey) {
       newScoreKey[vals[i][j].toLowerCase()] = keys[i];
     }
   }
+  newScoreKey[' '] = '0';
   return newScoreKey;
 }
 
@@ -28,24 +31,60 @@ function transform(oldScoreKey) {
 
 function initialPrompt() {
   let choice; 
-  let options = ['scrabble', 'simple score', 'bonus vowels']
+  let options = [0, 1, 2];
     while (options.indexOf(choice) === -1) {
-      choice = prompt(
-    `WELCOME TO SCRABBLE SCORER
-    Scoring Methods:
-    ${scoringAlgorithms[0].name}:            ${scoringAlgorithms[0].description}
-    ${scoringAlgorithms[1].name}:     ${scoringAlgorithms[1].description}
-    ${scoringAlgorithms[2].name}:    ${scoringAlgorithms[2].description}
-    Please enter your method:`).toLocaleLowerCase();
+      // choice = Number(input.question(`
+      choice = Number(prompt(`
+Welcome to the Scrabble score calculator. Enter 'Stop' to quit.
+
+Which scoring algorithm would you like to use?
+
+0 - ${scoringAlgorithms[0].name}:            ${scoringAlgorithms[0].description}
+1 - ${scoringAlgorithms[1].name}:     ${scoringAlgorithms[1].description}
+2 - ${scoringAlgorithms[2].name}:    ${scoringAlgorithms[2].description}
+Enter 0,1,2:`));
     }
+    
   return choice;
 }
 
 // Code your runProgram function here:
+function runProgram(arr) {
+  let choice = initialPrompt();
+  let word;
+  while (word !== 'stop') {
+    let method;
+    // let word = input.question(`Enter a word to be scored: `);
+    word = prompt(`Enter a word to be scored: `).toLowerCase();
+    let algoMsg = `Using algorithm: `;
 
+    if (word === 'stop') {
+      return 'Program stopped';
+    }
+    if (choice === 1) {
+      method = arr[1].scoreFunction(word)
+      console.log(algoMsg + arr[1].name)
+    } else if (choice === 2) {
+      method = arr[2].scoreFunction(word)
+      console.log(algoMsg + arr[2].name)
+    } else {
+      method = arr[0].scoreFunction(word)
+      console.log(algoMsg + arr[0].name)
+    }
+
+    let message = `
+Enter a word to be scored : ${word}
+Score for '${word}': ${method}
+      `;
+
+    console.log(message);
+  }
+  return runProgram(arr);
+}
 
 // Here is the oldScoreKey object:
 const oldScoreKey = {
+  // 0: [' '],
   1: ['A', 'E', 'I', 'O', 'U', 'L', 'N', 'R', 'S', 'T'],
   2: ['D', 'G'],
   3: ['B', 'C', 'M', 'P'],
@@ -86,6 +125,11 @@ let scoringAlgorithms = [
       for (letter in letters) {
         score += 1
       }
+      // letters.forEach(function (char) {
+      //   if (char === ' ') {
+      //     score -= 1;
+      //   }
+      // });
       return score;
     }
   },
@@ -98,40 +142,21 @@ let scoringAlgorithms = [
       let letters = word.toLowerCase().split('');
       for (let i = 0; i < letters.length; i++) {
         if (vowels.includes(letters[i])) {
-          score += 3
+          score += 3;
         } else {
           score += 1;
         }
       }
+      // letters.forEach(function(char) {
+      //   if (char === ' ') {
+      //     score -=1;
+      //   }
+      // });
         return score;
     }
   }
 ]
 
-console.log(scoringAlgorithms[2].scoreFunction('JavaScript'))
-console.log(scoringAlgorithms[1].scoreFunction('JavaScript'))
-console.log(scoringAlgorithms[0].scoreFunction('JavaScript'))
-// console.log(initialPrompt())
-
 // Call the runProgram function here:
-
-
-
-
-
-
-
-
-
-
-
-
-
-// const input = require('readline-sync');
-  // let choice = input.question(
-  //   `WELCOME TO SCRABBLE SCORER
-  //   Scoring Methods:
-  //   Scrabble:     Letters have traditional point values
-  //   Simple Score: Each Letter is worth 1 point
-  //   Bonus Vowels: Vowels are 3 points, consonants are 1 point
-  //   Please enter your method:`);
+console.log(transform(oldScoreKey))
+console.log(runProgram(scoringAlgorithms))
