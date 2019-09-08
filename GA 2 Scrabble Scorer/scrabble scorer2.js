@@ -52,7 +52,7 @@ Enter 0,1,2:`));
 function runProgram(arr) {
   let choice = initialPrompt();
   let word;
-  while (word !== 'stop') {
+  while (word !== 'stop'.toLowerCase()) {
     let method;
     // let word = input.question(`Enter a word to be scored: `);
     word = prompt(`Enter a word to be scored: `).toLowerCase();
@@ -62,18 +62,18 @@ function runProgram(arr) {
       return 'Program stopped';
     }
     if (choice === 1) {
-      method = arr[1].scoreFunction(word)
-      console.log(algoMsg + arr[1].name)
+      method = arr[1].scoreFunction(word);
+      console.log(`${algoMsg} ${arr[1].name}`);
     } else if (choice === 2) {
-      method = arr[2].scoreFunction(word)
-      console.log(algoMsg + arr[2].name)
+      method = arr[2].scoreFunction(word);
+      console.log(`${algoMsg} ${arr[2].name}`);
     } else {
-      method = arr[0].scoreFunction(word)
-      console.log(algoMsg + arr[0].name)
+      method = arr[0].scoreFunction(word);
+      console.log(`${algoMsg} ${arr[0].name}`);
     }
 
     let message = `
-Enter a word to be scored : ${word}
+Enter a word to be scored: ${word}
 Score for '${word}': ${method}
       `;
 
@@ -158,5 +158,5 @@ let scoringAlgorithms = [
 ]
 
 // Call the runProgram function here:
-console.log(transform(oldScoreKey))
+// console.log(transform(oldScoreKey))
 console.log(runProgram(scoringAlgorithms))
