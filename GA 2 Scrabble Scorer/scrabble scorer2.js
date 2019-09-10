@@ -1,18 +1,16 @@
 // Graded Assignment 2: Scrabble Scorer
 
-// const input = require('readline-sync');
+const input = require('readline-sync');
 
 // Code your transform function here:
 let newScoreKey = {};
 function transform(oldScoreKey) {
-  
   // let keys = [];
   // let vals = [];
-
-  // for (key in oldScoreKey) {
+  // for (let key in oldScoreKey) {
   //   keys.push(key);
   // }
-  // for (val in oldScoreKey) {
+  // for (let val in oldScoreKey) {
   //   vals.push(oldScoreKey[val])
   // }
 
@@ -23,28 +21,26 @@ function transform(oldScoreKey) {
       newScoreKey[vals[i][j].toLowerCase()] = keys[i];
     }
   }
-  newScoreKey[' '] = '0';
+  // newScoreKey[' '] = '0';
   return newScoreKey;
 }
 
 // Code your initialPrompt function here:
 
 function initialPrompt() {
-  let choice; 
+  let choice;
   let options = [0, 1, 2];
-    while (options.indexOf(choice) === -1) {
-      // choice = Number(input.question(`
-      choice = Number(prompt(`
-Welcome to the Scrabble score calculator. Enter 'Stop' to quit.
+  // while (options.indexOf(choice) === -1) { // Repeats until a valid choice is made.
+  choice = Number(input.question(`   
+Welcome to the Scrabble score calculator. Enter 'stop' to quit.
 
 Which scoring algorithm would you like to use?
 
-0 - ${scoringAlgorithms[0].name}:            ${scoringAlgorithms[0].description}
-1 - ${scoringAlgorithms[1].name}:     ${scoringAlgorithms[1].description}
+0 - ${scoringAlgorithms[0].name}:        ${scoringAlgorithms[0].description}
+1 - ${scoringAlgorithms[1].name}:    ${scoringAlgorithms[1].description}
 2 - ${scoringAlgorithms[2].name}:    ${scoringAlgorithms[2].description}
 Enter 0,1,2:`));
-    }
-    
+  // }
   return choice;
 }
 
@@ -52,31 +48,35 @@ Enter 0,1,2:`));
 function runProgram(arr) {
   let choice = initialPrompt();
   let word;
+  let algoMsg = `Using algorithm:`;
+  if (choice === 1) {
+    console.log(`${algoMsg} ${arr[1].name}
+    `);
+  } else if (choice === 2) {
+    console.log(`${algoMsg} ${arr[2].name}
+    `);
+  } else {
+    console.log(`${algoMsg} ${arr[0].name}
+    `);
+  }
+
   while (word !== 'stop'.toLowerCase()) {
     let method;
-    // let word = input.question(`Enter a word to be scored: `);
-    word = prompt(`Enter a word to be scored: `).toLowerCase();
-    let algoMsg = `Using algorithm: `;
-
+    let word = input.question(`Enter a word to be scored: `);
+    // word = prompt(`Enter a word to be scored: `);
     if (word === 'stop') {
       return 'Program stopped';
     }
     if (choice === 1) {
       method = arr[1].scoreFunction(word);
-      console.log(`${algoMsg} ${arr[1].name}`);
     } else if (choice === 2) {
       method = arr[2].scoreFunction(word);
-      console.log(`${algoMsg} ${arr[2].name}`);
     } else {
       method = arr[0].scoreFunction(word);
-      console.log(`${algoMsg} ${arr[0].name}`);
     }
 
-    let message = `
-Enter a word to be scored: ${word}
-Score for '${word}': ${method}
+    let message = `Score for '${word}': ${method}
       `;
-
     console.log(message);
   }
   return runProgram(arr);
@@ -96,20 +96,20 @@ const oldScoreKey = {
 
 // Use the transform function to create the newScoreKey object here:
 
-transform(oldScoreKey)
+transform(oldScoreKey);
 
 // Create your scoringAlgorithms array here:
 let scoringAlgorithms = [
   {
     name: 'Scrabble',
     description: 'The traditional scoring algorithm.',
-    scoreFunction: function(word) {
+    scoreFunction: function (word) {
       let score = 0;
       let letters = word.toLowerCase().split('');
       for (let i = 0; i < letters.length; i++) {
-        for (key in newScoreKey) {
+        for (let key in newScoreKey) {
           if (letters[i] === key) {
-            score += Number(newScoreKey[key][0]);
+            score += Number(newScoreKey[key]);
           }
         }
       }
@@ -119,24 +119,24 @@ let scoringAlgorithms = [
   {
     name: 'Simple Score',
     description: 'Each letter is worth 1 point.',
-    scoreFunction: function(word) {
+    scoreFunction: function (word) {
       let score = 0;
       let letters = word.toLowerCase().split('');
-      for (letter in letters) {
-        score += 1
+      for (let letter in letters) {
+        score += 1;
       }
-      // letters.forEach(function (char) {
-      //   if (char === ' ') {
-      //     score -= 1;
-      //   }
-      // });
+      letters.forEach(function (char) {
+        if (char === ' ') {
+          score -= 1;
+        }
+      });
       return score;
     }
   },
   {
     name: 'Bonus Vowels',
     description: 'Vowels are 3 points, consonants are 1 point.',
-    scoreFunction: function(word) {
+    scoreFunction: function (word) {
       let vowels = ['a', 'e', 'i', 'o', 'u'];
       let score = 0;
       let letters = word.toLowerCase().split('');
@@ -147,16 +147,16 @@ let scoringAlgorithms = [
           score += 1;
         }
       }
-      // letters.forEach(function(char) {
-      //   if (char === ' ') {
-      //     score -=1;
-      //   }
-      // });
-        return score;
+      letters.forEach(function (char) {
+        if (char === ' ') {
+          score -= 1;
+        }
+      });
+      return score;
     }
   }
-]
+];
 
 // Call the runProgram function here:
 // console.log(transform(oldScoreKey))
-console.log(runProgram(scoringAlgorithms))
+console.log(runProgram(scoringAlgorithms));
