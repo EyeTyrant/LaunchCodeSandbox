@@ -6,7 +6,7 @@ function gradeLabs(labs) {
     let result;    
     try {
      result = labs[i].runLab(3) === 27;
-    } catch {
+    } catch(err) {
       result = 'Error thrown';
     } 
     console.log(`${lab.student}'s code worked: ${result}`);
