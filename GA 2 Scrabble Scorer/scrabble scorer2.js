@@ -62,8 +62,8 @@ function runProgram(arr) {
 
   while (word !== 'stop'.toLowerCase()) {
     let method;
-    let word = input.question(`Enter a word to be scored: `);
-    // word = prompt(`Enter a word to be scored: `);
+    let word = input.question(`Enter a word to be scored: `).toLowerCase();
+    // word = prompt(`Enter a word to be scored: `).toLowerCase();
     if (word === 'stop') {
       return 'Program stopped';
     }
